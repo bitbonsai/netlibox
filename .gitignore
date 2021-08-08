@@ -4,3 +4,6 @@ Gemfile.lock
 .jekyll-metadata
 src/_posts
 .env
+
+# Local Netlify folder
+.netlify
