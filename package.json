@@ -5,12 +5,14 @@
   "main": "",
   "scripts": {
     "get-posts": "node ./scripts/get-posts-from-dropbox.js",
-    "start": "npm run get-posts && npx @11ty/eleventy",
+    "start-local": "npm run get-posts && npx @11ty/eleventy",
+    "start": "npm run get-posts && cd ./src && npx @11ty/eleventy",
     "start-netlify-functions": "netlify-lambda serve ./src/_netlify-functions",
-    "build": "npm run get-posts && npm run build-netlify-functions && npx @11ty/eleventy",
+    "build-local": "npm run get-posts && npm run build-netlify-functions && npx @11ty/eleventy",
+    "build": "npm run get-posts && npm run build-netlify-functions && cd ./src && npx @11ty/eleventy",
     "build-netlify-functions": "netlify-lambda build ./src/_netlify-functions",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npm run get-posts && npx @11ty/eleventy --serve"
+    "dev-local": "npm run get-posts && npx @11ty/eleventy --serve"
   },
   "repository": {
     "type": "git",
