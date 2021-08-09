@@ -18,9 +18,9 @@ const dbx = new Dropbox({
 
 // Clean anything up that exists already, since we'll be re-building this folder
 // everytime we run a build
-const POSTS_DIR = path.resolve(__dirname, "../src/_posts");
-fs.removeSync(POSTS_DIR);
-fs.ensureDirSync(POSTS_DIR);
+const CONTENT_DIR = path.resolve(__dirname, process.env.CONTENT_DIR);
+fs.removeSync(CONTENT_DIR);
+fs.ensureDirSync(CONTENT_DIR);
 
 // Get all the posts in the root of our our Dropbox App's directory and save
 // them all to our local posts folder.
@@ -34,8 +34,9 @@ dbx
         dbx
           .filesDownload({ path: path_lower })
           .then(data => {
-            const filename = path.resolve(POSTS_DIR, name);
-            const filecontents = data.fileBinary.toString();
+            const filename = path.resolve(CONTENT_DIR, name);
+            // const filecontents = data.fileBinary.toString(); // removing the toString allows me to get images
+            const filecontents = data.fileBinary;
 
             fs.outputFile(filename, filecontents).catch(error => {
               if (error) {

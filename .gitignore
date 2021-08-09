@@ -1,9 +1,14 @@
+# dependencies installed by npm
+node_modules
+
 build*
-Gemfile.lock
-.sass-cache
-.jekyll-metadata
-src/_posts
+dbx_content
+public
 .env
+.log
 
 # Local Netlify folder
 .netlify
+
+# macOS related files
+.DS_Store

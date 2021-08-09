@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBX</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+</head>
+
+<body >
+    <section class=" container">
+        <p><img src="/img/logos.svg" alt=""></p>
+<p>The content below is being fetched from Dropbox:</p>
+<div class="dbx-contents">
+<ul>
+<li><a href="/dbx/wildwaves/">Wild Waves</a></li>
+<li><a href="/dbx/secretgarden/">My Secret Garden</a></li>
+</ul>
+</div>
+<h1>TL;DR</h1>
+<ol>
+<li>Place content (<code>.md</code> files, images) on a Dropbox folder</li>
+<li>This triggers a Netlify build for a 11ty SSG site</li>
+<li>Go to your site and enjoy!</li>
+</ol>
+<hr>
+<h1>Context</h1>
+<p>Building sites is fun. Using Netlify and 11ty, you can quickly build a site and serve on Netlify for free. Just hook yor github repo on Netlify and Github becomes your CMS!</p>
+<p>But then, what if you want other people -- not just geeks like you -- to add content? What if you want to quickly write down few words and publish from your phone?</p>
+<p>What could be a simpler workflow that is simple and easy enough to share with your mom or a less techy-savvy friend?</p>
+<h2>It's not only text, not only pages</h2>
+<p>Text only sites are quite easy to integrate with Notion, or even Google Sheets.</p>
+<p>The problem starts when you try to integrate images, other file types, or a catalog of items to generate cards. The solutions I've found are cumbersome or just too much hassle for the user. Should you put your images on an S3? Google Photos? Copy each link and paste into a spreadsheet or a Notion database?</p>
+<p>The ideal solution would be to have a simple folder where you'd dump your content and magically that would appear on the web. But how?</p>
+<h2>The use case: a small website for an artist</h2>
+<p>My wife is an artist. So naturally I wanted to give her a <a href="https://karinwolff.art">website to showcase her paintings</a> . It doesn't need to be fancy, it's basically a small set of pages, showing her paintings, zooming on them, a simple about page.</p>
+<p>That's the best scenario for a SSG, to be hosted on <a href="https://netlify.com">Netlify</a>.</p>
+<p>And I want to give her the possibility to update it, with as little hassle as possible.</p>
+<p>So I built a 11ty site and started to look how to have a simpler, easier CMS to give her. Pure responsive html, nothing fancy but with 100% Pagespeed score.</p>
+<p>Then I found <a href="https://github.com/jimniels/netlibox">Netlibox</a>, that ticked <strong>almost</strong> all boxes. This is the base of this project, and a genius piece of code from <a href="https://github.com/jimniels">Jim Nielsen</a>.</p>
+<p>Only thing is I already have the 11ty site, and Netlibox runs on Jekyll, and only supports <code>.md</code> files... then Netlibox11ty was born.</p>
+<hr>
+<h2>How does it work</h2>
+<p>There are a few requirements:</p>
+<ol>
+<li>Dropbox account</li>
+<li>Netlify account</li>
+<li>Github account</li>
+</ol>
+<p>The content editors will need to have a Dropbox account, where you'll create your Dropbox App.</p>
+<h3>Initial setup</h3>
+<p>Follow the setup part of <a href="https://github.com/jimniels/netlibox">Netlibox's  How To</a>.</p>
+<h3>How Netlibox11ty is different?</h3>
+<p>Two major differences:</p>
+<ol>
+<li>It uses 11ty instead of Jekyll</li>
+<li>It copies all files to the <code>dbx</code> directory, not only text ones</li>
+</ol>
+<h3>How does it work?</h3>
+<p>Any <code>.md</code> file will be converted to html. Any other file will be copied to the <code>_site/dbx</code> folder, untouched (useful for images or downloadable files).</p>
+<p>In this example, a <code>dbx</code> <code>collection</code> was created by adding the tag <code>dbx</code> to frontmatter in all markdown files. Feel free to customize your collections however you want!</p>
+<p>Here's an example Frontmatter for my wife's paintings:</p>
+<div class="dbx-contents pre">---
+name: "Wild Waves"
+image: "wild-waves.jpg"
+year: 2021
+type: "Acrylic on Canvas"
+size: "150x101cm"
+price: "AUD $"
+tags: "dbx"
+layout: "page.njk"
+---</div>
+<p>The main purpose here is to have a <code>collection</code> to be looped into cards; The pages for paintings are not linked anywhere, but could be. I've applied a layout just to check if the image is accessible.</p>
+<p>And here's the output, looping on the collection:</p>
+<p><img src="/img/iphone-karinart.jpg" alt="iPhone output"></p>
+<h3>Why Dropbox?</h3>
+<p><strong>Simplicity</strong>. We don't mind commiting stuff to github to update a website, but we're not most users.</p>
+<p>Learning how to write a basic front-matter markdown file can be intimidating enough. With this system, any file stored in Dropbox will trigger a Netlify build, that will fetch the files, place them into a <code>dbx</code> folder and copy them to the public site.</p>
+<p>The <code>.md</code> files are going to be converted to <code>html</code>, and the other files will be copied as-is and can be referenced in the collection you've specified in Front-matter.</p>
+<h3>Show me!</h3>
+<p>The example below is in the repo.</p>
+<p>You'll find 2 <code>.jpg</code> files with my wife's paintings, with the correspondent <code>.md</code> files that contains the front-matter that generates the <code>collection</code>.</p>
+<p><img src="/img/dbx-folder.png" alt="Dropbox folder"></p>
+<p>Any files dropped there will trigger the Netlify build, that will generate the site and publish it.</p>
+<p>That's it, really. Drop files, publish site. Can be images, pages as <code>.md</code> files, and those can be converted to pages or just generate collections.</p>
+
+    </section>
+
+    <footer class="container">
+        <hr>
+        <div>
+            <p>&copy; 2021 Netlify + Dropbox + 11ty • Mauricio Wolff (@bitbonsai)</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

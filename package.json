@@ -1,31 +1,34 @@
 {
-  "name": "netlibox",
+  "name": "netlibox-11ty",
   "version": "1.0.0",
   "description": "",
   "main": "",
   "scripts": {
     "get-posts": "node ./scripts/get-posts-from-dropbox.js",
-    "start": "npm run get-posts && cd ./src && bundle exec jekyll serve",
+    "start": "npm run get-posts && npx @11ty/eleventy",
     "start-netlify-functions": "netlify-lambda serve ./src/_netlify-functions",
-    "build": "npm run get-posts && npm run build-netlify-functions && cd ./src && bundle exec jekyll build",
+    "build": "npm run get-posts && npm run build-netlify-functions && npx @11ty/eleventy",
     "build-netlify-functions": "netlify-lambda build ./src/_netlify-functions",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm run get-posts && npx @11ty/eleventy --serve"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jimniels/netlibox.git"
+    "url": "git+https://github.com/bitbonsai/netlibox-11ty"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jimniels/netlibox/issues"
+    "url": "https://github.com/bitbonsai/netlibox-11ty/issues"
   },
-  "homepage": "https://github.com/jimniels/netlibox#readme",
+  "homepage": "https://github.com/bitbonsai/netlibox-11ty#readme",
   "devDependencies": {
     "dotenv": "^6.0.0",
     "dropbox": "^4.0.5",
     "fs-extra": "^6.0.1",
     "isomorphic-fetch": "^2.2.1",
-    "netlify-lambda": "^0.4.0"
+    "netlify-lambda": "^0.4.0",
+    "@11ty/eleventy": "^0.12.1",
+    "@11ty/eleventy-cache-assets": "^2.3.0"
   }
 }
