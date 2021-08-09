@@ -3,7 +3,7 @@ node_modules
 
 build*
 dbx_content
-public
+_site*
 .env
 .log
 
